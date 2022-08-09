@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/nav_main">
+
+
+    <fragment
+        android:id="@+id/nav_main"
+        android:name="dong.android.plod.main.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/move_to_playlist"
+            app:destination="@id/nav_playlist" />
+        <action
+            android:id="@+id/move_to_record"
+            app:destination="@id/nav_record" />
+        <action
+            android:id="@+id/move_to_video"
+            app:destination="@id/nav_video" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_playlist"
+        android:name="dong.android.plod.main.playlist.PlayListFragment"
+        android:label="fragment_play_list"
+        tools:layout="@layout/fragment_play_list" />
+    <fragment
+        android:id="@+id/nav_record"
+        android:name="dong.android.plod.main.record.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+    <fragment
+        android:id="@+id/nav_video"
+        android:name="dong.android.plod.main.video.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" />
+</navigation>

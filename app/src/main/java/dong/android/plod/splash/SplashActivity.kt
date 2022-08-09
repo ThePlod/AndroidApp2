@@ -8,7 +8,7 @@ import android.os.Looper
 import dong.android.plod.R
 import dong.android.plod.di.App
 import dong.android.plod.login.LoginActivity
-import dong.android.plod.main.MainActivity
+import dong.android.plod.main.activity.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
