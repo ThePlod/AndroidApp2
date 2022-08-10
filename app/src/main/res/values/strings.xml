@@ -6,7 +6,11 @@
     <string name="playlist">플레이리스트</string>
     <string name="record">녹음</string>
     <string name="video">동영상</string>
-    
+
     <string name="playlist_main_text">현수와 동화의 플레이리스트</string>
+
+    <string name="hint_input_song">노래 제목을 입력하세요.</string>
+    <string name="hint_input_singer">가수 이름을 입력하세요.</string>
+    <string name="hint_input_genre">장르를 입력하세요.</string>
 
 </resources>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.playlist.AddDialogFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dong.android.plod.main.playlist.AddDialogViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/edittext_underline"
+            android:hint="@string/hint_input_song"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="4dp"
+            android:text="@={viewModel.song}"
+            android:textColor="@color/black"
+            android:textColorHint="#C4C4C4"
+            android:textSize="14sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/edittext_underline"
+            android:hint="@string/hint_input_singer"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="4dp"
+            android:text="@={viewModel.singer}"
+            android:textColor="@color/black"
+            android:textColorHint="#C4C4C4"
+            android:textSize="14sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/edittext_underline"
+            android:hint="@string/hint_input_genre"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="4dp"
+            android:text="@={viewModel.genre}"
+            android:textColor="@color/black"
+            android:textColorHint="#C4C4C4"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/tv_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginHorizontal="8dp"
+                android:text="@{viewModel.song}"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_singer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_song"
+                android:layout_marginHorizontal="8dp"
+                android:text="@{viewModel.singer}"
+                android:textColor="#C4C4C4"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_song"
+                android:layout_alignParentEnd="true"
+                android:layout_marginHorizontal="8dp"
+                android:text="@{viewModel.genre}"
+                android:textColor="#C4C4C4"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/ic_check_24"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>
