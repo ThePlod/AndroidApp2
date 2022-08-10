@@ -6,7 +6,7 @@
     <string name="playlist">플레이리스트</string>
     <string name="record">녹음</string>
     <string name="video">동영상</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string name="playlist_main_text">현수와 동화의 플레이리스트</string>
 
 </resources>

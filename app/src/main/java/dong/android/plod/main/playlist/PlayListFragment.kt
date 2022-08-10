@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dong.android.plod.R
 import dong.android.plod.databinding.FragmentPlayListBinding
 import dong.android.plod.util.autoCleared
 
