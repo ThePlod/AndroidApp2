@@ -1,4 +1,4 @@
-package dong.android.plod.login
+package dong.android.plod.login.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

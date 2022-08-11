@@ -37,7 +37,7 @@
             android:paddingBottom="24dp"
             android:text="@string/playlist"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:drawableTopCompat="@drawable/ic_playlist_48" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:paddingBottom="24dp"
             android:text="@string/record"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:drawableTopCompat="@drawable/ic_record_48" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:paddingBottom="24dp"
             android:text="@string/video"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:drawableTopCompat="@drawable/ic_video_48" />
 
     </LinearLayout>

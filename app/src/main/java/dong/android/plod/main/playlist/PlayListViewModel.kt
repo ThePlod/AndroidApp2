@@ -17,7 +17,7 @@ class PlayListViewModel : ViewModel() {
 
     private lateinit var mSocket: Socket
     private val onConnect = Emitter.Listener {
-        mSocket.emit("android init", "Android to Server")
+        mSocket.emit("user id", "admin")
     }
 
     @Synchronized
