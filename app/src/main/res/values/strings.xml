@@ -12,12 +12,25 @@
     <string name="hint_input_song">노래 제목을 입력하세요.</string>
     <string name="hint_input_singer">가수 이름을 입력하세요.</string>
     <string name="hint_input_genre">장르를 입력하세요.</string>
-    
+
     <string name="login_selection_text">내 안의 가수 욕망</string>
-    
+
     <string name="sign_up">회원가입 하기</string>
     <string name="sign_in">로그인 하기</string>
     <string name="sign_in_naver">네이버로 로그인 하기</string>
     <string name="sign_in_kakao">카카오로 로그인 하기</string>
+
+    <string name="input_email">이메일을 입력해주세요.</string>
+    <string name="input_verification_code">인증번호를 입력해주세요.</string>
+    <string name="notification_verification_code_sent">인증번호가 발송되었습니다.</string>
+
+    <string name="get_verification_code">인증코드 받기</string>
+    <string name="verification_completed">인증 완료</string>
+
+    <string name="input_password">비밀번호를 설정해주세요.</string>
+    <string name="input_password_re">비밀번호 확인</string>
+    <string name="notification_wrong_password">비밀번호가 일치하지 않습니다.</string>
+
+    <string name="start">시작하기</string>
 
 </resources>

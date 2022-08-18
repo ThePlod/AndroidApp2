@@ -9,5 +9,29 @@
         android:id="@+id/nav_login_selection"
         android:name="dong.android.plod.login.selection.LoginSelectionFragment"
         android:label="fragment_login_selection"
-        tools:layout="@layout/fragment_login_selection" />
+        tools:layout="@layout/fragment_login_selection" >
+        <action
+            android:id="@+id/move_to_sign_up_email"
+            app:destination="@id/nav_sign_up_email" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sign_up_email"
+        android:name="dong.android.plod.login.signup.SignUpEmailFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up_email" >
+        <action
+            android:id="@+id/move_to_sign_up_password"
+            app:destination="@id/nav_sign_up_password" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sign_up_password"
+        android:name="dong.android.plod.login.signup.SignUpPasswordFragment"
+        android:label="fragment_sign_up_password"
+        tools:layout="@layout/fragment_sign_up_password" >
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>

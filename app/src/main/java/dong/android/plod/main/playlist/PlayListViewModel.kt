@@ -74,6 +74,8 @@ class PlayListViewModel : ViewModel() {
     fun emitSongData(data: SongData) {
         val dataAsJson = Gson().toJson(data)
         mSocket.emit("newly added", dataAsJson)
+
+        mSocket.emit("song data with token", "token, {SongData}")
     }
 
     @Synchronized
