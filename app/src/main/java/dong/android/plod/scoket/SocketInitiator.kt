@@ -13,6 +13,7 @@ class SocketInitiator {
 
     private lateinit var mSocket: Socket
     private val onConnect = Emitter.Listener {
+        //자동로그인
         mSocket.emit("user id", "admin")
     }
 

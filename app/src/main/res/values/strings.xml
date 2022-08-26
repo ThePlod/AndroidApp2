@@ -32,5 +32,8 @@
     <string name="notification_wrong_password">비밀번호가 일치하지 않습니다.</string>
 
     <string name="start">시작하기</string>
+    <string name="input_login_email">이메일</string>
+    <string name="input_login_password">비밀번호</string>
+    <string name="login_find_id">아이디가 생각나지 않으세요? ></string>
 
 </resources>

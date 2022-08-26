@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import dong.android.plod.R
@@ -33,6 +34,8 @@ class SignUpPasswordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        passwordMatchFunction()
+
         binding.btnStart.setOnClickListener {
             emitSignUpInfoToServer()
             getSignUpSuccessFromServer()
@@ -55,13 +58,27 @@ class SignUpPasswordFragment : Fragment() {
                 val signUpSuccessInfo =
                     Gson().fromJson(it[0].toString(), HashMap<String, Any>()::class.java)
 
-                if (signUpSuccessInfo["success"] == true){
-
+                if (signUpSuccessInfo["success"] == true) {
+                    binding.root.post {
+                        findNavController().navigate(R.id.move_to_login_selection)
+                    }
                 } else {
-
+                    // 로그인 실패
                 }
 
                 Log.d("sign up success", it[0].toString())
+            }
+        }
+    }
+
+    private fun passwordMatchFunction() {
+        viewModel.passWordRe.observe(viewLifecycleOwner) {
+            if (it == viewModel.passWord.value) {
+                binding.btnStart.isEnabled = true
+                binding.tvWrongPassword.visibility = View.GONE
+            } else {
+                binding.btnStart.isEnabled = false
+                binding.tvWrongPassword.visibility = View.VISIBLE
             }
         }
     }

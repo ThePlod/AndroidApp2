@@ -9,17 +9,20 @@
         android:id="@+id/nav_login_selection"
         android:name="dong.android.plod.login.selection.LoginSelectionFragment"
         android:label="fragment_login_selection"
-        tools:layout="@layout/fragment_login_selection" >
+        tools:layout="@layout/fragment_login_selection">
         <action
             android:id="@+id/move_to_sign_up_email"
             app:destination="@id/nav_sign_up_email" />
+        <action
+            android:id="@+id/move_to_sign_in"
+            app:destination="@id/nav_sign_in" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_sign_up_email"
         android:name="dong.android.plod.login.signup.SignUpEmailFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up_email" >
+        tools:layout="@layout/fragment_sign_up_email">
         <action
             android:id="@+id/move_to_sign_up_password"
             app:destination="@id/nav_sign_up_password" />
@@ -29,9 +32,29 @@
         android:id="@+id/nav_sign_up_password"
         android:name="dong.android.plod.login.signup.SignUpPasswordFragment"
         android:label="fragment_sign_up_password"
-        tools:layout="@layout/fragment_sign_up_password" >
+        tools:layout="@layout/fragment_sign_up_password">
         <argument
             android:name="email"
             app:argType="string" />
+        <action
+            android:id="@+id/move_to_login_selection"
+            app:destination="@id/nav_login_selection"
+            app:popUpTo="@id/nav_graph_login"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_sign_in"
+        android:name="dong.android.plod.login.signin.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in">
+
+        <action
+            android:id="@+id/move_to_main"
+            app:destination="@id/nav_main_activity" />
+    </fragment>
+    <activity
+        android:id="@+id/nav_main_activity"
+        android:name="dong.android.plod.main.activity.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>
