@@ -6,20 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.google.gson.Gson
 import dong.android.plod.R
+import dong.android.plod.base.BaseFragment
 import dong.android.plod.databinding.FragmentMainBinding
-import dong.android.plod.util.autoCleared
+import dong.android.plod.di.App
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment<FragmentMainBinding>() {
 
-    private var binding by autoCleared<FragmentMainBinding>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentMainBinding.inflate(layoutInflater)
-        return binding.root
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentMainBinding {
+        return FragmentMainBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,44 +1,60 @@
 package dong.android.plod.login.signup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.gson.Gson
 import dong.android.plod.R
+import dong.android.plod.base.BaseFragment
 import dong.android.plod.databinding.FragmentSignUpPasswordBinding
 import dong.android.plod.di.App
-import dong.android.plod.util.autoCleared
 
-class SignUpPasswordFragment : Fragment() {
+class SignUpPasswordFragment : BaseFragment<FragmentSignUpPasswordBinding>() {
 
-    private var binding by autoCleared<FragmentSignUpPasswordBinding>()
     private val viewModel: SignUpPasswordViewModel by viewModels()
     private val args: SignUpPasswordFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_password, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
-        return binding.root
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentSignUpPasswordBinding {
+        return FragmentSignUpPasswordBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        passwordMatchFunction()
+        initFunctions()
+        initPasswordMatchFunction()
+    }
 
-        binding.btnStart.setOnClickListener {
-            emitSignUpInfoToServer()
-            getSignUpSuccessFromServer()
+    private fun initFunctions() {
+        binding.apply {
+            btnStart.setOnClickListener {
+                emitSignUpInfoToServer()
+                getSignUpSuccessFromServer()
+            }
+
+            etPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    viewModel.updatePasswordText(p0.toString())
+                }
+            })
+
+            etPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    viewModel.updatePasswordReText(p0.toString())
+                }
+            })
         }
     }
 
@@ -71,7 +87,7 @@ class SignUpPasswordFragment : Fragment() {
         }
     }
 
-    private fun passwordMatchFunction() {
+    private fun initPasswordMatchFunction() {
         viewModel.passWordRe.observe(viewLifecycleOwner) {
             if (it == viewModel.passWord.value) {
                 binding.btnStart.isEnabled = true
@@ -81,5 +97,10 @@ class SignUpPasswordFragment : Fragment() {
                 binding.tvWrongPassword.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        App.socket.off("sign up success")
     }
 }

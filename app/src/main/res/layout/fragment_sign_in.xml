@@ -27,7 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_login"
-            android:padding="16dp" />
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="16dp"
+            tools:ignore="LabelFor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_login"
-            android:padding="16dp" />
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="16dp"
+            tools:ignore="LabelFor" />
 
         <TextView
             android:id="@+id/tv_find_password"
@@ -67,5 +75,4 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

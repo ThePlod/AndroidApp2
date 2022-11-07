@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import dong.android.plod.di.App
 import dong.android.plod.model.SongData
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -15,30 +16,11 @@ class PlayListViewModel : ViewModel() {
 
     var list = MutableLiveData<List<SongData>>()
 
-    private lateinit var mSocket: Socket
-    private val onConnect = Emitter.Listener {
-        mSocket.emit("user id", "admin")
-    }
-
     @Synchronized
     fun setSocket() {
         try {
-            mSocket = IO.socket("http://211.199.155.142:1021")
-            mSocket.connect()
-
-            Log.d("setSocket", mSocket.toString())
-
-            //최초 서버 연결되었을 때 Socket.EVENT_CONNECT 를 받고 onConnect(리스너) 실행
-            mSocket.on(Socket.EVENT_CONNECT, onConnect)
-
-            mSocket.on("server init") {
-                if (it[0] != null) {
-                    Log.d("server init", it[0] as String)
-                }
-            }
-
             //Get Whole List
-            mSocket.on("whole list") {
+            App.socket.on("whole list") {
                 val tempList = mutableListOf<SongData>()
 
                 if (it[0] != null) {
@@ -52,7 +34,7 @@ class PlayListViewModel : ViewModel() {
             }
 
             //Get Returned List
-            mSocket.on("returned list") {
+            App.socket.on("returned list") {
                 val tempList = mutableListOf<SongData>()
 
                 if (it[0] != null) {
@@ -73,14 +55,13 @@ class PlayListViewModel : ViewModel() {
     @Synchronized
     fun emitSongData(data: SongData) {
         val dataAsJson = Gson().toJson(data)
-        mSocket.emit("newly added", dataAsJson)
-
-        mSocket.emit("song data with token", "token, {SongData}")
+        App.socket.emit("newly added", dataAsJson)
+        App.socket.emit("song data with token", "token, {SongData}")
     }
 
     @Synchronized
     fun deleteItems(list: List<SongData>) {
         val dataAsJson = Gson().toJson(list)
-        mSocket.emit("deleting items", dataAsJson)
+        App.socket.emit("deleting items", dataAsJson)
     }
 }

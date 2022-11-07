@@ -2,31 +2,27 @@ package dong.android.plod.main.playlist
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dong.android.plod.adapter.PlayListAdapter
+import dong.android.plod.base.BaseFragment
 import dong.android.plod.databinding.FragmentPlayListBinding
 import dong.android.plod.main.activity.MainActivity
 import dong.android.plod.model.SongData
-import dong.android.plod.util.autoCleared
 
-class PlayListFragment : Fragment() {
+class PlayListFragment : BaseFragment<FragmentPlayListBinding>() {
 
-    private var binding by autoCleared<FragmentPlayListBinding>()
     private val viewModel: PlayListViewModel by activityViewModels()
-
     private var isDeletable: Boolean = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentPlayListBinding.inflate(layoutInflater)
-        return binding.root
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentPlayListBinding {
+        return FragmentPlayListBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,5 +97,4 @@ class PlayListFragment : Fragment() {
     private fun deleteItems() {
         viewModel.deleteItems((binding.rvPlaylist.adapter as PlayListAdapter).deleteList)
     }
-
 }

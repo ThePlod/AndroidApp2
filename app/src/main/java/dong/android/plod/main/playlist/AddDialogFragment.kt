@@ -16,11 +16,9 @@ import androidx.fragment.app.viewModels
 import dong.android.plod.R
 import dong.android.plod.databinding.FragmentAddDialogBinding
 import dong.android.plod.model.SongData
-import dong.android.plod.util.autoCleared
 
 class AddDialogFragment : DialogFragment() {
-
-    private var binding by autoCleared<FragmentAddDialogBinding>()
+    lateinit var binding: FragmentAddDialogBinding
 
     private val activityViewModel: PlayListViewModel by activityViewModels()
     private val viewModel: AddDialogViewModel by viewModels()

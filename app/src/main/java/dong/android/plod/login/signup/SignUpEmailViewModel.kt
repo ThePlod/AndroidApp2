@@ -7,4 +7,7 @@ class SignUpEmailViewModel : ViewModel() {
 
     var verificationCodeInput = MutableLiveData<String>()
 
+    fun updateVerificationText(input: String) {
+        verificationCodeInput.value = input
+    }
 }

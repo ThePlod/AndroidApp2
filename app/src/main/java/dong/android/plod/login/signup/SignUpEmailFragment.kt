@@ -1,54 +1,68 @@
 package dong.android.plod.login.signup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.google.gson.Gson
-import dong.android.plod.R
+import dong.android.plod.base.BaseFragment
 import dong.android.plod.databinding.FragmentSignUpEmailBinding
 import dong.android.plod.di.App
-import dong.android.plod.util.autoCleared
 
+class SignUpEmailFragment : BaseFragment<FragmentSignUpEmailBinding>() {
 
-class SignUpEmailFragment : Fragment() {
-
-    private var binding by autoCleared<FragmentSignUpEmailBinding>()
     private val viewModel: SignUpEmailViewModel by viewModels()
 
     private var verificationCode = 0
     private var email = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_email, container, false)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
-        return binding.root
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+    ): FragmentSignUpEmailBinding {
+        return FragmentSignUpEmailBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.btnGetVerificationCode.setOnClickListener {
-            emitEmailToServer()
-            getVerificationCode()
-        }
+        initFunctions()
+    }
 
-        binding.btnVerificationCompleted.setOnClickListener {
-            val action = SignUpEmailFragmentDirections.moveToSignUpPassword(email)
-            it.findNavController().navigate(action)
+    private fun initFunctions() {
+        binding.apply {
+            btnGetVerificationCode.setOnClickListener {
+                emitEmailToServer()
+                getVerificationCode()
+            }
+
+            btnVerificationCompleted.setOnClickListener {
+                if (etEmail.text.toString() == email) {
+                    val action = SignUpEmailFragmentDirections.moveToSignUpPassword(email)
+                    it.findNavController().navigate(action)
+                }
+            }
+
+            etVerificationCode.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    viewModel.updateVerificationText(p0.toString())
+                }
+            })
+
+            viewModel.verificationCodeInput.observe(viewLifecycleOwner) {
+                binding.btnVerificationCompleted.isEnabled = it.toInt() == verificationCode
+            }
         }
     }
 
     private fun emitEmailToServer() {
-        App.socket.emit("sign up email", binding.etEmail.text.toString())
+        email = binding.etEmail.text.toString()
+        App.socket.emit("sign up email", email)
     }
 
     private fun getVerificationCode() {
@@ -59,7 +73,6 @@ class SignUpEmailFragment : Fragment() {
 
                 if (verificationInfo["success"] == true) {
                     showVerificationInput()
-                    email = binding.etEmail.text.toString()
                     verificationCode = verificationInfo["number"].toString().toInt()
                 } else {
                     showWrongEmailInputMsg(msg = verificationInfo["msg"].toString())
@@ -82,10 +95,6 @@ class SignUpEmailFragment : Fragment() {
                 btnGetVerificationCode.visibility = View.GONE
                 btnVerificationCompleted.visibility = View.VISIBLE
             }
-
-            viewModel.verificationCodeInput.observe(viewLifecycleOwner) {
-                binding.btnVerificationCompleted.isEnabled = it.toInt() == verificationCode
-            }
         }
     }
 
@@ -96,5 +105,11 @@ class SignUpEmailFragment : Fragment() {
                 text = msg
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        App.socket.off("sign up email")
+        App.socket.off("verification code")
     }
 }
