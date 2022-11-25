@@ -35,6 +35,7 @@ class SignUpPasswordFragment : BaseFragment<FragmentSignUpPasswordBinding>() {
 
     private fun initFunctions() {
         binding.apply {
+            btnStart.isEnabled = false
             btnStart.setOnClickListener {
                 emitSignUpInfoToServer()
                 getSignUpSuccessFromServer()
@@ -48,7 +49,7 @@ class SignUpPasswordFragment : BaseFragment<FragmentSignUpPasswordBinding>() {
                 }
             })
 
-            etPassword.addTextChangedListener(object : TextWatcher {
+            etPasswordRe.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
                 override fun afterTextChanged(p0: Editable?) {
@@ -88,13 +89,17 @@ class SignUpPasswordFragment : BaseFragment<FragmentSignUpPasswordBinding>() {
     }
 
     private fun initPasswordMatchFunction() {
-        viewModel.passWordRe.observe(viewLifecycleOwner) {
-            if (it == viewModel.passWord.value) {
-                binding.btnStart.isEnabled = true
-                binding.tvWrongPassword.visibility = View.GONE
-            } else {
-                binding.btnStart.isEnabled = false
-                binding.tvWrongPassword.visibility = View.VISIBLE
+        binding.apply {
+            viewModel.passWordRe.observe(viewLifecycleOwner) {
+                if (it == viewModel.passWord.value) {
+                    if (viewModel.passWord.value != "") {
+                        btnStart.isEnabled = true
+                        tvWrongPassword.visibility = View.GONE
+                    }
+                } else {
+                    btnStart.isEnabled = false
+                    tvWrongPassword.visibility = View.VISIBLE
+                }
             }
         }
     }

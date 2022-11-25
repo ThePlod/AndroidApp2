@@ -62,11 +62,9 @@ class PlayListAdapter : RecyclerView.Adapter<PlayListAdapter.PlayListViewHolder>
                 when (isChecked) {
                     true -> {
                         deleteList.add(differ.currentList[bindingAdapterPosition])
-                        Log.d("deleteList", deleteList.toString())
                     }
                     false -> {
                         deleteList.remove(differ.currentList[bindingAdapterPosition])
-                        Log.d("deleteList", deleteList.toString())
                     }
                 }
             }
